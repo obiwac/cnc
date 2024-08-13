@@ -60,3 +60,34 @@ I'm going with the 1-phase 230V 50 Hz option because that's what we have in Euro
 It claims it will also work fine with voltages up to 260V, which is good because sometimes the wall voltage passes 240V slightly at home.
 
 It then outputs the 3-phase variable frequency power to the spindle through the U, V, and W terminals, which naturally need to be connected to the corresponding U, V, and W terminals on the spindle.
+
+## Computer
+
+The computer I'm going for is the Raspberry Pi Zero W, purely because I have like a dozen of them left over from a previous project.
+Here are the relevant hardware features of the Raspberry Pi Zero:
+
+- WiFi chip. This will allow the Raspberry to host a web interface which can be connected to to upload/monitor jobs. There could also be a button to put the Raspberry in AP mode so that a client can connect to it and enter the desired WiFi SSID and password without having to connect a keyboard and a display.
+- VC4 GPU with a mini HDMI output. This could be used to display pretty job visualizations when connected to a monitor.
+- Pretty crappy single-core armv6 (32-bit) 1 GHz CPU. I think this will be enough to generate simple toolpaths, host a web server, and the like though.
+- 512 MB of RAM. Probably enough.
+- 40-pin GPIO header. This will be detailed in the next section.
+- OTG USB port with serial emulation. Can be used to hook up to a computer directly and offline with just a simple USB cable, for debugging, or offline monitoring and control.
+
+The Raspberry will act as a daughterboard to a motherboard.
+This will be presumably mean soldering a 40-pin male header to the GPIO and having an equivalent female header on the motherboard, and presumably a couple standoffs on the other side of the daughterboard to keep things solid.
+
+### GPIO header
+
+The GPIO header of the Raspberry Pi Zero W has 40 pins.
+Here is how many are usable for which purposes and also what I want to use them for:
+
+- 2 3.3V power: Seems pretty useless.
+- 2 5V power: The PSU for the stepper motors has a 5V rail, so this can be used for power.
+- 8 ground: I don't think I need to explain this lol.
+- 28 GPIO's total.
+- 4 GPIO's which support native I2C: Don't have a use for this.
+- 2 GPIO's which support native UART: This is on top of the OTG USB serial emulation, so this could either be used for the VFD or for the stepper PSU if we end up using the analog terminal on the VFD. If we do use this for the VFD, we can always bit-bang on two of the other GPIO's for the stepper PSU.
+- 5 GPIO's which support native SPI (0): Don't have a use for this.
+- 6 GPIO's which support native SPI (1): Don't have a use for this.
+- 4 GPIO's which support PWM (of which two overlap with SPI1): If it turns out I can use this as a speed control for the stepper speed controllers, this could be useful.
+- 9 purely digital GPIO's: These can be used for limit switches and other communication.
