@@ -42,7 +42,9 @@ I think an FSB nut is essentially the same thing as an FSI type 2 nut, just that
 ## Bearing blocks (screw ends)
 
 These are the bearing blocks on each end of the ballscrew which support it and hold it in place.
-The one used on the motor-side of the Z-axis is a BK12, and the one used on the other side is an BF12.
+The one used on the motor-side of the Z-axis is a BK12, and the one used on the other side is an BF12 (the total length of the threaded section is around 221 mm).
+
+On the HIWIN website, you'll find these under the "Bearings" or the "Support Units" sections.
 
 ### Machining of the ballscrew ends themselves
 
